@@ -5,3 +5,4 @@ const config: SqliteConnectionOptions = {
     database: 'db',
     entities:
 };
+
