@@ -4,9 +4,9 @@ const config: SqliteConnectionOptions = {
   type: 'sqlite',
   database: 'db',
   entities: [
-    // 'dist/entitity/user.entitiy.js',
-    // 'dist/entitity/expense.entitiy.js',
-    // 'dist/entitity/income.entitity.js',
+    // 'dist/entity/user.entitiy.js',
+    // 'dist/entity/expense.entitiy.js',
+    // 'dist/entity/income.entity.js',
   ],
   synchronize: true,
 };
