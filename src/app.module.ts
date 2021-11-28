@@ -17,6 +17,9 @@ import { AuthModule } from './authService/auth.module';
       // password: process.env.DB_PASS,
       // port: +process.env.DB_PORT,
       url: process.env.DATABASE_URL,
+      ssl: {
+        rejectUnauthorized: false,
+      },
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
