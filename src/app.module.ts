@@ -11,11 +11,12 @@ import { AuthModule } from './authService/auth.module';
   imports: [
     TypeOrmModule.forRoot({
       type: 'postgres',
-      host: process.env.DB_HOST,
-      database: process.env.DB_DATABASE,
-      username: process.env.DB_USER,
-      password: process.env.DB_PASS,
-      port: +process.env.DB_PORT,
+      // host: process.env.DB_HOST,
+      // database: process.env.DB_DATABASE,
+      // username: process.env.DB_USER,
+      // password: process.env.DB_PASS,
+      // port: +process.env.DB_PORT,
+      url: process.env.DATABASE_URL,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
