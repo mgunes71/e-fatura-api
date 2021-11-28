@@ -10,8 +10,12 @@ import { AuthModule } from './authService/auth.module';
 @Module({
   imports: [
     TypeOrmModule.forRoot({
-      type: 'sqlite',
-      database: 'db/db.sqlite3',
+      type: 'postgres',
+      host: process.env.DB_HOST,
+      database: process.env.DB_DATABASE,
+      username: process.env.DB_USER,
+      password: process.env.DB_PASS,
+      port: +process.env.DB_PORT,
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
