@@ -10,6 +10,7 @@ import {
 import { UserService } from './user.service';
 import { JwtAuthGuard } from '../authService/Guard/jwt.auth.guard';
 import { DeleteResult } from 'typeorm';
+import { AuthenticatedUser } from '../authService/decorators/authenticatedUser';
 
 @UseGuards(JwtAuthGuard)
 @Controller('user')
@@ -36,9 +37,12 @@ export class UserController {
   //   return this.userService.updateUser(id, user);
   // }
 
-  @Delete(':id')
-  async deleteUser(@Param('id') id: number): Promise<DeleteResult> {
-    return this.userService.deleteUser(id);
+  @Delete()
+  async deleteUser(
+    // @Param('id') id: number,
+    @AuthenticatedUser() user: any,
+  ): Promise<any> {
+    return this.userService.deleteUser(user);
   }
 
   // @Post('userName')

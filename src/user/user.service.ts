@@ -26,12 +26,15 @@ export class UserService {
   //   return this.userRepository.update(id, user);
   // }
 
-  // Çalışmıyor
-  async deleteUser(id: number): Promise<DeleteResult> {
-    return this.userRepository.delete(id);
+  // hesabı silme olacak
+  async deleteUser(user: any): Promise<any> {
+    // const deletedUser = await this.userRepository.find({
+    //   where: { id: user.id },
+    // });
+    return this.userRepository.delete(user);
   }
 
-  // parola hiçbir zaman gelemsin
+  // parola login hariç bir istekde gözükmesin diye
   async getUserWithPassword(username: string) {
     return this.userRepository.findOne({
       where: { userName: username },
