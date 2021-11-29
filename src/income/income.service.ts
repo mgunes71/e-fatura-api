@@ -42,7 +42,7 @@ export class IncomeService {
         //naber
       }
     });
-    return user;
+    return false;
   }
 
   async deleteIncome(id: number): Promise<DeleteResult> {
