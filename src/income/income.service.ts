@@ -39,10 +39,9 @@ export class IncomeService {
     userIncomes.forEach((inco) => {
       if (id === inco.id) {
         return this.incomeRepository.update(id, income);
-
       }
+      return false;
     });
-    return false;
   }
 
   async deleteIncome(id: number): Promise<DeleteResult> {
