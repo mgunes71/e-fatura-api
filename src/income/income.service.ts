@@ -32,8 +32,16 @@ export class IncomeService {
     return this.incomeRepository.find({ where: { user: user } });
   }
 
-  async updateIncome(id: number, income: any): Promise<any> {
-    return this.incomeRepository.update(id, income);
+  async updateIncome(user, id: number, income: any): Promise<any> {
+    const userIncomes = await this.incomeRepository.find({
+      where: { user: user },
+    });
+    userIncomes.forEach((inco) => {
+      if (id === inco.id) {
+        return this.incomeRepository.update(id, income);
+      }
+    });
+    return user;
   }
 
   async deleteIncome(id: number): Promise<DeleteResult> {
