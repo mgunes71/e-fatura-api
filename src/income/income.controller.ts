@@ -13,6 +13,7 @@ import { JwtAuthGuard } from '../authService/Guard/jwt.auth.guard';
 import { AuthenticatedUser } from '../authService/decorators/authenticatedUser';
 import { DeleteResult } from 'typeorm';
 
+// jwt guard sadece böyle bir kullanıcı var mı bunu kontrol ediyor
 @UseGuards(JwtAuthGuard)
 @Controller('incomes')
 export class IncomeController {
@@ -32,8 +33,9 @@ export class IncomeController {
   async updateIncome(
     @Param('id') id: number,
     @Body() income: any,
+    @AuthenticatedUser() user: any,
   ): Promise<any> {
-    return this.incomeService.updateIncome(id, income);
+    return this.incomeService.updateIncome(user, id, income);
   }
 
   @Delete(':id')

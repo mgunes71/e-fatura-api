@@ -39,6 +39,7 @@ export class IncomeService {
     userIncomes.forEach((inco) => {
       if (id === inco.id) {
         return this.incomeRepository.update(id, income);
+        //naber
       }
     });
     return user;
