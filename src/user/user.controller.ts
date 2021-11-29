@@ -21,15 +21,15 @@ export class UserController {
   //   return this.userService.createUser(user);
   // }
 
-  @Get()
-  async getAllUser(): Promise<any> {
-    return this.userService.getAllUsers();
-  }
+  // @Get()
+  // async getAllUser(): Promise<any> {
+  //   return this.userService.getAllUsers();
+  // }
 
-  @Get(':id')
-  async getByIdUser(@Param('id') id: number): Promise<any> {
-    return this.userService.getByIdUser(id);
-  }
+  // @Get(':id')
+  // async getByIdUser(@Param('id') id: number): Promise<any> {
+  //   return this.userService.getByIdUser(id);
+  // }
   //
   // @Put(':id')
   // async updateUser(@Param('id') id: number, @Body() user: any): Promise<any> {
