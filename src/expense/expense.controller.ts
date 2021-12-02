@@ -10,7 +10,6 @@ import {
 } from '@nestjs/common';
 import { ExpenseService } from './expense.service';
 import { AuthenticatedUser } from '../authService/decorators/authenticatedUser';
-import { DeleteResult } from 'typeorm';
 import { JwtAuthGuard } from '../authService/Guard/jwt.auth.guard';
 
 @UseGuards(JwtAuthGuard)
@@ -20,10 +19,10 @@ export class ExpenseController {
 
   @Post()
   async createExpense(
-    @Body() expense: any,
+    @Body() expenseDto: any,
     @AuthenticatedUser() user: any,
   ): Promise<any> {
-    return this.expenseService.createExpense(user, expense);
+    return this.expenseService.createExpense(user, expenseDto);
   }
 
   @Get()
@@ -31,16 +30,28 @@ export class ExpenseController {
     return this.expenseService.getAllExpense(user);
   }
 
+  @Get(':id')
+  async getByDateExpense(
+    @AuthenticatedUser() user: any,
+    @Param('id') id: any,
+  ): Promise<any> {
+    return this.expenseService.getByDateExpense(user.id, id);
+  }
+
   @Put(':id')
   async updateExpense(
+    @AuthenticatedUser() user: any,
     @Param('id') id: number,
     @Body() expense: any,
   ): Promise<any> {
-    return this.expenseService.updateExpense(id, expense);
+    return this.expenseService.updateExpense(user, id, expense);
   }
 
   @Delete(':id')
-  async deleteExpense(@Param('id') id: number): Promise<DeleteResult> {
-    return this.expenseService.deleteExpense(id);
+  async deleteExpense(
+    @AuthenticatedUser() user: any,
+    @Param('id') id: number,
+  ): Promise<any> {
+    return this.expenseService.deleteExpense(user, id);
   }
 }

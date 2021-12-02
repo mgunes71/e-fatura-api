@@ -1,27 +1,30 @@
 import {
+  AutoIncrement,
+  BelongsTo,
   Column,
-  CreateDateColumn,
-  Entity,
-  ManyToOne,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
+  ForeignKey,
+  Model,
+  PrimaryKey,
+  Table,
+} from 'sequelize-typescript';
 import { UserEntity } from './user.entity';
 
-@Entity()
-export class ExpenseEntity {
-  @PrimaryGeneratedColumn()
+@Table
+export class ExpenseEntity extends Model {
+  @AutoIncrement
+  @PrimaryKey
+  @Column
   id: number;
 
-  @Column()
-  // toplarken number a çevir
+  @Column
   expense: string;
 
-  // @Column({ type: 'date' })
-  // date_only: string;
+  @Column
+  description: string;
 
-  @CreateDateColumn()
-  createdDate: Date;
+  @ForeignKey(() => UserEntity)
+  userId: number;
 
-  @ManyToOne((type) => UserEntity, (user) => user.expense)
+  @BelongsTo(() => UserEntity)
   user: UserEntity;
 }

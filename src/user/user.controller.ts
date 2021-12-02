@@ -9,44 +9,29 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from '../authService/Guard/jwt.auth.guard';
-import { DeleteResult } from 'typeorm';
 import { AuthenticatedUser } from '../authService/decorators/authenticatedUser';
 
 @UseGuards(JwtAuthGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
-
-  // @Post()
-  // createUser(@Body() user: any) {
-  //   return this.userService.createUser(user);
-  // }
-
-  // @Get()
-  // async getAllUser(): Promise<any> {
-  //   return this.userService.getAllUsers();
-  // }
-
-  // @Get(':id')
-  // async getByIdUser(@Param('id') id: number): Promise<any> {
-  //   return this.userService.getByIdUser(id);
-  // }
-  //
-  // @Put(':id')
-  // async updateUser(@Param('id') id: number, @Body() user: any): Promise<any> {
-  //   return this.userService.updateUser(id, user);
-  // }
-
-  @Delete()
-  async deleteUser(
-    // @Param('id') id: number,
+  @Put()
+  async updateUserPassword(
     @AuthenticatedUser() user: any,
+    @Body() password: any,
   ): Promise<any> {
-    return this.userService.deleteUser(user);
+    return this.userService.updateUserPass(user, password);
   }
 
-  // @Post('userName')
-  // findOne(@Body() userName: string): Promise<any> {
-  //   return this.userService.findOne(userName);
-  // }
+  // user yanlış düşüyor
+  @Delete()
+  async deleteUser(@AuthenticatedUser() user: any): Promise<any> {
+    console.log(user.userName);
+    return this.userService.deleteAccount(user);
+  }
+
+  @Get()
+  async getByIdUser(@AuthenticatedUser() user: any): Promise<any> {
+    return this.userService.getUser(user.userName);
+  }
 }

@@ -3,7 +3,6 @@ import {
   BelongsTo,
   Column,
   ForeignKey,
-  HasOne,
   Model,
   PrimaryKey,
   Table,
@@ -11,17 +10,26 @@ import {
 import { UserEntity } from './user.entity';
 
 @Table
-export class IncomeEntity extends Model {
+export class ContactEntity extends Model {
   @AutoIncrement
   @PrimaryKey
   @Column
   id: number;
 
   @Column
-  income: string;
+  email: string;
 
   @Column
-  description: string;
+  phone: string;
+
+  @Column
+  vkn: string;
+
+  @Column
+  taxOffice: string;
+
+  @Column
+  address: string;
 
   @ForeignKey(() => UserEntity)
   userId: number;

@@ -1,44 +1,62 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
+import { BadRequestException, Injectable } from '@nestjs/common';
+import { InjectModel } from '@nestjs/sequelize';
 import { UserEntity } from '../entity/user.entity';
-import { DeleteResult, Repository } from 'typeorm';
+import * as bcrypt from 'bcrypt';
+import { ContactEntity } from "../entity/contact.entity";
 
 @Injectable()
 export class UserService {
   constructor(
-    @InjectRepository(UserEntity)
-    private readonly userRepository: Repository<UserEntity>,
+    @InjectModel(UserEntity)
+    private userRepository: typeof UserEntity,
   ) {}
 
   async createUser(user: any): Promise<any> {
-    return await this.userRepository.save(user);
-  }
-
-  async getAllUsers(): Promise<any> {
-    return await this.userRepository.find();
+    return await this.userRepository.create(user);
   }
 
   async getByIdUser(id: any): Promise<any> {
-    return await this.userRepository.findOne(id);
+    return await this.userRepository.findOne({
+      where: { id: id },
+    });
   }
 
-  // async updateUser(id: number, user: any): Promise<any> {
-  //   return this.userRepository.update(id, user);
-  // }
+  async updateUserPass(userDto: any, passwordDto: any): Promise<any> {
+    const user = await this.getUserWithPassword(userDto.userName);
+    const hashedPassword = await bcrypt.hash(passwordDto.password, 10);
+    // const isPasswordMatch = await bcrypt.compare(hashedPassword, user.password);
+    // if (isPasswordMatch) {
+    //   throw new BadRequestException('Password is not old password');
+    // }
+    await this.userRepository.update(
+      {
+        password: hashedPassword,
+      },
+      { where: { id: userDto.id } },
+    );
+    return user;
+  }
 
   // hesabı silme olacak
-  async deleteUser(user: any): Promise<any> {
-    // const deletedUser = await this.userRepository.find({
-    //   where: { id: user.id },
-    // });
-    return this.userRepository.delete(user);
+  async deleteAccount(userDto: any): Promise<any> {
+    const user = await this.userRepository.findOne({
+      where: { id: userDto.id },
+    });
+    await user.destroy();
+    return 'success';
   }
 
   // parola login hariç bir istekde gözükmesin diye
   async getUserWithPassword(username: string) {
+    return this.userRepository.scope(['defaultScope', 'withPassword']).findOne({
+      where: { userName: username },
+    });
+  }
+
+  async getUser(username: any) {
     return this.userRepository.findOne({
       where: { userName: username },
-      select: ['id', 'userName', 'password'],
+      include: [ContactEntity],
     });
   }
 }

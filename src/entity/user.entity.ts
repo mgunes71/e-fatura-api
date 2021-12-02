@@ -1,27 +1,52 @@
 import {
+  AutoIncrement,
   Column,
-  Entity,
-  Exclusion,
-  OneToMany,
-  PrimaryGeneratedColumn,
-} from 'typeorm';
-import { ExpenseEntity } from './expense.entity';
+  DefaultScope,
+  HasMany,
+  Model,
+  PrimaryKey,
+  Table,
+  Scopes,
+} from 'sequelize-typescript';
 import { IncomeEntity } from './income.entity';
+import { ExpenseEntity } from './expense.entity';
+import { ContactEntity } from './contact.entity';
+import { InvoiceEntity } from './invoice.entity';
 
-@Entity()
-export class UserEntity {
-  @PrimaryGeneratedColumn()
+@DefaultScope(() => ({
+  attributes: {
+    exclude: ['password'],
+  },
+}))
+@Scopes(() => ({
+  withPassword: {
+    attributes: {
+      include: ['password'],
+    },
+  },
+}))
+@Table
+export class UserEntity extends Model {
+  @AutoIncrement
+  @PrimaryKey
+  @Column
   id: number;
 
-  @Column()
+  @Column
   userName: string;
 
-  @Column({ select: false })
+  @Column
   password: string;
 
-  @OneToMany((type) => ExpenseEntity, (expense) => expense.user)
+  @HasMany(() => IncomeEntity)
+  income: IncomeEntity[];
+
+  @HasMany(() => ExpenseEntity)
   expense: ExpenseEntity[];
 
-  @OneToMany((type) => IncomeEntity, (income) => income.user)
-  income: IncomeEntity[];
+  @HasMany(() => ContactEntity)
+  contact: ContactEntity;
+
+  @HasMany(() => InvoiceEntity)
+  invoice: InvoiceEntity[];
 }

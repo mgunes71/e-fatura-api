@@ -36,9 +36,12 @@ export class AuthService {
   }
 
   async register(registerDto: any) {
+    const invalidUser = await this.userService.getUser(registerDto.userName);
+    if (invalidUser) {
+      throw new BadRequestException('İnvalid username');
+    }
     const hashedPassword = await bcrypt.hash(registerDto.password, 10);
     try {
-      // createdUser.password = undefined;
       return await this.userService.createUser({
         ...registerDto,
         password: hashedPassword,

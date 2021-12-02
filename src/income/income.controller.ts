@@ -11,7 +11,6 @@ import {
 import { IncomeService } from './income.service';
 import { JwtAuthGuard } from '../authService/Guard/jwt.auth.guard';
 import { AuthenticatedUser } from '../authService/decorators/authenticatedUser';
-import { DeleteResult } from 'typeorm';
 
 // jwt guard sadece böyle bir kullanıcı var mı bunu kontrol ediyor
 @UseGuards(JwtAuthGuard)
@@ -20,13 +19,21 @@ export class IncomeController {
   constructor(private incomeService: IncomeService) {}
 
   @Post()
-  async create(@Body() income: any, @AuthenticatedUser() user: any) {
-    return this.incomeService.createIncome(user, income);
+  async create(@Body() incomeDto: any, @AuthenticatedUser() user: any) {
+    return this.incomeService.createIncome(user, incomeDto);
   }
 
   @Get()
   async getAllIncome(@AuthenticatedUser() user: any): Promise<any> {
     return this.incomeService.getAllIncome(user);
+  }
+
+  @Get(':id')
+  async getByDateIncome(
+    @AuthenticatedUser() user: any,
+    @Param('id') id: any,
+  ): Promise<any> {
+    return this.incomeService.getByDateIncome(user.id, id);
   }
 
   @Put(':id')
@@ -39,7 +46,10 @@ export class IncomeController {
   }
 
   @Delete(':id')
-  async deleteIncome(@Param('id') id: number): Promise<DeleteResult> {
-    return this.incomeService.deleteIncome(id);
+  async deleteIncome(
+    @AuthenticatedUser() user: any,
+    @Param('id') id: number,
+  ): Promise<any> {
+    return this.incomeService.deleteIncome(user, id);
   }
 }

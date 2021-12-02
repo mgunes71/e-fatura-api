@@ -14,7 +14,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, 'jwt') {
     });
   }
   async validate(payload: any) {
-    // header den gelen tokenın içinden userId yi alıyor
+    // header den gelen tokenın içinden userId yi alıyor boyle bır kullanıcı var mı kontrolu
     const user = await this.userService.getByIdUser(payload.userId);
     if (!user) {
       throw new UnauthorizedException();

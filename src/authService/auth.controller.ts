@@ -19,8 +19,6 @@ export class AuthController {
   @UseGuards(JwtAuthGuard)
   @Get('session')
   async session(@AuthenticatedUser() user: any) {
-    if (user) {
-      return true;
-    }
+    return user;
   }
 }
