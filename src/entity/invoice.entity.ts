@@ -29,7 +29,7 @@ export class InvoiceEntity extends Model {
   description: string;
 
   @Column
-  income: string;
+  income: number;
 
   @Column
   invoiceType: string;

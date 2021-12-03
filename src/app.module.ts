@@ -14,7 +14,8 @@ import { InvoiceEntity } from './entity/invoice.entity';
 import { ContactEntity } from './entity/contact.entity';
 import { CustomerModule } from './customer/customer.module';
 import { ContactModule } from './user/contact/contact.module';
-import { InvoiceModule } from "./invoice/invoice.module";
+import { InvoiceModule } from './invoice/invoice.module';
+import { WalletEntity } from './entity/wallet.entity';
 
 @Module({
   imports: [
@@ -42,6 +43,7 @@ import { InvoiceModule } from "./invoice/invoice.module";
         CustomerEntity,
         InvoiceEntity,
         ContactEntity,
+        WalletEntity,
       ],
       // autoLoadModels: true,
       synchronize: true,

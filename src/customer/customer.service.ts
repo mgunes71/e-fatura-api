@@ -63,6 +63,12 @@ export class CustomerService {
     return customers;
   }
 
+  async getCustomerById(id: any): Promise<any> {
+    return this.customerRepository.findOne({
+      where: { id: id },
+    });
+  }
+
   async deleteCustomer(user: any, id: number): Promise<any> {
     const customer = await this.customerRepository.findOne({
       where: {

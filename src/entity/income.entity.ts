@@ -18,7 +18,7 @@ export class IncomeEntity extends Model {
   id: number;
 
   @Column
-  income: string;
+  income: number;
 
   @Column
   description: string;

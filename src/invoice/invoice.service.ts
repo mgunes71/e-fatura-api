@@ -4,6 +4,7 @@ import { InvoiceEntity } from '../entity/invoice.entity';
 import { IncomeService } from '../income/income.service';
 import { UserEntity } from '../entity/user.entity';
 import { CustomerEntity } from '../entity/customer.entity';
+import { CustomerService } from "../customer/customer.service";
 
 @Injectable()
 export class InvoiceService {
@@ -11,6 +12,7 @@ export class InvoiceService {
     @InjectModel(InvoiceEntity)
     private invoiceRepository: typeof InvoiceEntity,
     private incomeService: IncomeService,
+    private customerService: CustomerService,
   ) {}
 
   async createInvoice(
@@ -18,6 +20,10 @@ export class InvoiceService {
     invoiceDto: any,
     customerId: any,
   ): Promise<any> {
+    const customer = await this.customerService.getCustomerById(customerId);
+    if (!customer) {
+      throw new BadRequestException('Customer is not found');
+    }
     const invoice = await this.invoiceRepository.create({
       description: invoiceDto.description,
       income: invoiceDto.income,

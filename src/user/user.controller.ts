@@ -23,7 +23,6 @@ export class UserController {
     return this.userService.updateUserPass(user, password);
   }
 
-  // user yanlış düşüyor
   @Delete()
   async deleteUser(@AuthenticatedUser() user: any): Promise<any> {
     console.log(user.userName);
@@ -33,5 +32,15 @@ export class UserController {
   @Get()
   async getByIdUser(@AuthenticatedUser() user: any): Promise<any> {
     return this.userService.getUser(user.userName);
+  }
+
+  @Get('balance/active')
+  async totalIncome(@AuthenticatedUser() user: any): Promise<any> {
+    return this.userService.getActiveBalance(user);
+  }
+
+  @Get('balance/monthly')
+  async monthlyBalance(@AuthenticatedUser() user: any): Promise<any> {
+    return this.userService.getMonthlyBalance(user);
   }
 }

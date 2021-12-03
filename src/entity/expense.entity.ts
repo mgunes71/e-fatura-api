@@ -17,7 +17,7 @@ export class ExpenseEntity extends Model {
   id: number;
 
   @Column
-  expense: string;
+  expense: number;
 
   @Column
   description: string;
