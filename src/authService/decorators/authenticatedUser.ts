@@ -1,6 +1,6 @@
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
-// baska bir kullanıcı işlem yapamasın diye
+// user ı veriyor bize
 export const AuthenticatedUser = createParamDecorator(
   (data: any, ctx: ExecutionContext) => {
     const request = ctx.switchToHttp().getRequest();

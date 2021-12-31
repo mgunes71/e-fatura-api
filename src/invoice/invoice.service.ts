@@ -45,17 +45,17 @@ export class InvoiceService {
 
   // async getUserWithCustomerIdInvoice(user: any, id: any): Promise<any> {}
 
-  // async deleteInvoice(user: any, id: number): Promise<any> {
-  //   const invoice = await this.invoiceRepository.findOne({
-  //     where: {
-  //       id: id,
-  //       userId: user.id,
-  //     },
-  //   });
-  //   if (!invoice) {
-  //     throw new BadRequestException('invoice is not found');
-  //   }
-  //   await invoice.destroy();
-  //   return 'success';
-  // }
+  async deleteInvoice(user: any, id: number): Promise<any> {
+    const invoice = await this.invoiceRepository.findOne({
+      where: {
+        id: id,
+        userId: user.id,
+      },
+    });
+    if (!invoice) {
+      throw new BadRequestException('invoice is not found');
+    }
+    await invoice.destroy();
+    return 'success';
+  }
 }

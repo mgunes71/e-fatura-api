@@ -31,11 +31,11 @@ export class InvoiceController {
     return this.invoiceService.getInvoices(user);
   }
 
-  // @Delete(':id')
-  // async deleteInvoice(
-  //   @AuthenticatedUser() user: any,
-  //   @Param('id') id: number,
-  // ): Promise<any> {
-  //   return this.invoiceService.deleteInvoice(user, id);
-  // }
+  @Delete(':id')
+  async deleteInvoice(
+    @AuthenticatedUser() user: any,
+    @Param('id') id: number,
+  ): Promise<any> {
+    return this.invoiceService.deleteInvoice(user, id);
+  }
 }

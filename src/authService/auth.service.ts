@@ -17,7 +17,7 @@ export class AuthService {
   ) {}
 
   async login(loginDto: any) {
-    const user = await this.userService.getUserWithPassword(loginDto.username);
+    const user = await this.userService.getUserWithPassword(loginDto.userName);
     if (!user) {
       throw new BadRequestException('kullanıcı bulunamadı');
     }

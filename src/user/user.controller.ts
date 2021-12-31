@@ -39,6 +39,11 @@ export class UserController {
     return this.userService.getActiveBalance(user);
   }
 
+  @Get()
+  async getUserDetail(@AuthenticatedUser() user: any): Promise<any> {
+    return this.userService.getByIdUser(user.id);
+  }
+
   @Get('balance/monthly')
   async monthlyBalance(@AuthenticatedUser() user: any): Promise<any> {
     return this.userService.getMonthlyBalance(user);

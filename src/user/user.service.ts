@@ -6,6 +6,10 @@ import { ContactEntity } from '../entity/contact.entity';
 import { IncomeService } from '../income/income.service';
 import { ExpenseService } from '../expense/expense.service';
 import { WalletEntity } from '../entity/wallet.entity';
+import { IncomeEntity } from '../entity/income.entity';
+import { ExpenseEntity } from '../entity/expense.entity';
+import { CustomerEntity } from '../entity/customer.entity';
+import { InvoiceEntity } from '../entity/invoice.entity';
 
 @Injectable()
 export class UserService {
@@ -25,6 +29,7 @@ export class UserService {
   async getByIdUser(id: any): Promise<any> {
     return await this.userRepository.findOne({
       where: { id: id },
+      include: [IncomeEntity, ExpenseEntity, ContactEntity, InvoiceEntity],
     });
   }
 
