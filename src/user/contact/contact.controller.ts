@@ -16,12 +16,12 @@ export class ContactController {
     return this.contactService.createContact(user, contactDto);
   }
 
-  @Put(':id')
+  @Put()
   async updateContactUser(
     @AuthenticatedUser() user: any,
-    @Param('id') id: number,
+    // @Param('id') id: number,
     @Body() contactDto: any,
   ): Promise<any> {
-    return this.contactService.updateContact(user, id, contactDto);
+    return this.contactService.updateContact(user, contactDto);
   }
 }

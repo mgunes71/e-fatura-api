@@ -26,10 +26,9 @@ export class ContactService {
     });
   }
 
-  async updateContact(user: any, id: number, contactDto: any): Promise<any> {
+  async updateContact(user: any, contactDto: any): Promise<any> {
     const userContact = await this.contactRepository.findOne({
       where: {
-        id: id,
         userId: user.id,
       },
     });
@@ -44,7 +43,7 @@ export class ContactService {
         taxOffice: contactDto.taxOffice,
         address: contactDto.address,
       },
-      { where: { id: id } },
+      { where: { userId: user.id } },
     );
     return 'success';
   }
