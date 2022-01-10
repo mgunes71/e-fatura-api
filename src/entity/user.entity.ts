@@ -6,8 +6,8 @@ import {
   Model,
   PrimaryKey,
   Table,
-  Scopes,
-} from 'sequelize-typescript';
+  Scopes, HasOne
+} from "sequelize-typescript";
 import { IncomeEntity } from './income.entity';
 import { ExpenseEntity } from './expense.entity';
 import { ContactEntity } from './contact.entity';
@@ -44,7 +44,7 @@ export class UserEntity extends Model {
   @HasMany(() => ExpenseEntity)
   expense: ExpenseEntity[];
 
-  @HasMany(() => ContactEntity)
+  @HasOne(() => ContactEntity)
   contact: ContactEntity;
 
   @HasMany(() => InvoiceEntity)
