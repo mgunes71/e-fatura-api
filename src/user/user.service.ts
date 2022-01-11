@@ -97,13 +97,13 @@ export class UserService {
     return incomes - expenses;
   }
 
-  async getMonthlyBalance(user: any): Promise<any> {
-    const monthBalance = await this.getActiveBalance(user);
-    const NmonBalance = monthBalance.toString();
-
-    return this.walletRepository.create({
-      userId: user.id,
-      balance: NmonBalance,
-    });
-  }
+  // async getMonthlyBalance(user: any): Promise<any> {
+  //   const monthBalance = await this.getActiveBalance(user);
+  //   const NmonBalance = monthBalance.toString();
+  //
+  //   return this.walletRepository.create({
+  //     userId: user.id,
+  //     balance: NmonBalance,
+  //   });
+  // }
 }

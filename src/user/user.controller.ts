@@ -35,7 +35,7 @@ export class UserController {
   }
 
   @Get('balance/active')
-  async totalIncome(@AuthenticatedUser() user: any): Promise<any> {
+  async totalBalance(@AuthenticatedUser() user: any): Promise<any> {
     return this.userService.getActiveBalance(user);
   }
 
@@ -44,8 +44,8 @@ export class UserController {
     return this.userService.getByIdUser(user.id);
   }
 
-  @Get('balance/monthly')
-  async monthlyBalance(@AuthenticatedUser() user: any): Promise<any> {
-    return this.userService.getMonthlyBalance(user);
-  }
+  // @Get('balance/monthly')
+  // async monthlyBalance(@AuthenticatedUser() user: any): Promise<any> {
+  //   return this.userService.getMonthlyBalance(user);
+  // }
 }
