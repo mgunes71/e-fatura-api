@@ -17,13 +17,9 @@ import { InvoiceService } from './invoice.service';
 export class InvoiceController {
   constructor(private invoiceService: InvoiceService) {}
 
-  @Post(':customerId')
-  async createInvoice(
-    @AuthenticatedUser() user: any,
-    @Body() invoiceDto: any,
-    @Param('customerId') customerId: number,
-  ) {
-    return this.invoiceService.createInvoice(user, invoiceDto, customerId);
+  @Post()
+  async createInvoice(@AuthenticatedUser() user: any, @Body() invoiceDto: any) {
+    return this.invoiceService.createInvoice(user, invoiceDto);
   }
 
   @Get()

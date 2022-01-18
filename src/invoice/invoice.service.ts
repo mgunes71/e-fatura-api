@@ -15,12 +15,10 @@ export class InvoiceService {
     private customerService: CustomerService,
   ) {}
 
-  async createInvoice(
-    user: any,
-    invoiceDto: any,
-    customerId: any,
-  ): Promise<any> {
-    const customer = await this.customerService.getCustomerById(customerId);
+  async createInvoice(user: any, invoiceDto: any): Promise<any> {
+    const customer = await this.customerService.getCustomerById(
+      invoiceDto.customerId,
+    );
     if (!customer) {
       throw new BadRequestException('Customer is not found');
     }
@@ -30,7 +28,7 @@ export class InvoiceService {
       invoiceNo: invoiceDto.invoiceNo,
       invoiceType: invoiceDto.invoiceType,
       userId: user.id,
-      customerId: customerId,
+      customerId: invoiceDto.customerId,
     });
     await this.incomeService.createIncome(user, invoiceDto);
     return invoice;
