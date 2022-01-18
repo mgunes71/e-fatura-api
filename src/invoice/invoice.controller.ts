@@ -31,6 +31,14 @@ export class InvoiceController {
     return this.invoiceService.getInvoices(user);
   }
 
+  @Get(':invoiceId')
+  async getInvoiceById(
+    @AuthenticatedUser() user: any,
+    @Param('invoiceId') invoiceId: any,
+  ): Promise<any> {
+    return this.invoiceService.getInvoiceById(user, invoiceId);
+  }
+
   @Delete(':id')
   async deleteInvoice(
     @AuthenticatedUser() user: any,

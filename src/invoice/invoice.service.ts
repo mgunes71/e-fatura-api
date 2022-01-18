@@ -4,7 +4,7 @@ import { InvoiceEntity } from '../entity/invoice.entity';
 import { IncomeService } from '../income/income.service';
 import { UserEntity } from '../entity/user.entity';
 import { CustomerEntity } from '../entity/customer.entity';
-import { CustomerService } from "../customer/customer.service";
+import { CustomerService } from '../customer/customer.service';
 
 @Injectable()
 export class InvoiceService {
@@ -43,7 +43,19 @@ export class InvoiceService {
     });
   }
 
-  // async getUserWithCustomerIdInvoice(user: any, id: any): Promise<any> {}
+  async getInvoiceById(user: any, id: any): Promise<any> {
+    const invoices = await this.invoiceRepository.findOne({
+      where: {
+        userId: user.id,
+        id: id,
+      },
+      include: [UserEntity, CustomerEntity],
+    });
+    if (!invoices) {
+      throw new BadRequestException('invoice is not found');
+    }
+    return invoices;
+  }
 
   async deleteInvoice(user: any, id: number): Promise<any> {
     const invoice = await this.invoiceRepository.findOne({
